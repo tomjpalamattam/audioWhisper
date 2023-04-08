@@ -10,6 +10,7 @@ import os
 
 parser = argparse.ArgumentParser(description="parameters for audioWhisper.py")
 parser.add_argument('--devices', default='False', type=str, help='print all available devices id')
+#parser.add_argument('--model', type=str, choices=['tiny','tiny.en', 'small', 'small.en', 'medium', 'medium.en', 'large'], default='small', help='model to be use for generating audio transcribe')
 parser.add_argument('--model', type=str, choices=['small','large'], default='small', help='model to be use for generating audio transcribe')
 parser.add_argument('--task', type=str, choices=['transcribe', 'translate'], default='transcribe', help='task for the model whether to only transcribe the audio or translate the audio to english')
 parser.add_argument('--device_index', default= 2, type=int, help='the id of the device ')
@@ -37,6 +38,7 @@ def main():
         if model == 'large.en':
             raise ValueError("english model does not have large model, please choose from {tiny.en, small.en, medium.en}")
 
+    #audio_model = whisper.load_model(model)
     audio_model = whisper(model)
 
     sd.default.device[0] = device_index
