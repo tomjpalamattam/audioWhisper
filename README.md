@@ -5,7 +5,7 @@ Listen to any audio stream on your machine and print out the transcribed or tran
 
 1. [**Turn on stereo mix settings on windows first before running the script**](https://www.howtogeek.com/howto/39532/how-to-enable-stereo-mix-in-windows-7-to-record-audio/)
 2. [**Install and add ffmpeg to your PATH**](https://www.thewindowsclub.com/how-to-install-ffmpeg-on-windows-10#:~:text=Click%20New%20and%20type%20the,Click%20OK%20to%20apply%20changes.)
-3. [**Install CUDA to your system**](https://developer.nvidia.com/cuda-downloads) 
+3. [**Install CUDA to your system (package 'cudnn' in arch linux)**](https://developer.nvidia.com/cuda-downloads) 
 ## Setup
 
 1. choose envs of your choices.
