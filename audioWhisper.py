@@ -10,8 +10,8 @@ import os
 
 parser = argparse.ArgumentParser(description="parameters for audioWhisper.py")
 parser.add_argument('--devices', default='False', type=str, help='print all available devices id')
-#parser.add_argument('--model', type=str, choices=['tiny','tiny.en', 'small', 'small.en', 'medium', 'medium.en', 'large'], default='small', help='model to be use for generating audio transcribe')
-parser.add_argument('--model', type=str, choices=['small','large'], default='small', help='model to be use for generating audio transcribe')
+#parser.add_argument('--model', type=str, choices=['tiny','tiny.en', 'small', 'small.en', 'medium', 'medium.en', 'large'], default='small', help='model to be use for generating audio transcribe') # old code
+parser.add_argument('--model', type=str, choices=['small','large','large-v2','large-v1','medium'], default='medium', help='model to be use for generating audio transcribe')
 parser.add_argument('--task', type=str, choices=['transcribe', 'translate'], default='transcribe', help='task for the model whether to only transcribe the audio or translate the audio to english')
 parser.add_argument('--device_index', default= 2, type=int, help='the id of the device ')
 parser.add_argument('--channel', default= 2, type=int, help='number of channels for the device')
@@ -57,14 +57,18 @@ def main():
         try:
             #print("transcribing...")
             prevTime = time.now()
-            result = audio_model.transcribe(f"{output_dir}/audio{indexPath}.wav", 
-                                            task=task, 
-                                            no_speech_threshold=0.6, 
-                                            compression_ratio_threshold=2.0,
-                                            language=language)
+            #result = audio_model.transcribe(f"{output_dir}/audio{indexPath}.wav", #old code
+            #                                task=task, # old code
+            #                                no_speech_threshold=0.6, # old code
+            #                                compression_ratio_threshold=2.0, #old code
+            #                                language=language) # old code
 
-            translatedText = result.get('text') #try result["text"]
-            print(f'\n {task}d text:', translatedText)
+            #translatedText = result.get('text') #try result["text"] # old code
+            #print(f'\n {task}d text:', translatedText) # old code
+            result,info=audio_model.transcribe(f"{output_dir}/audio{indexPath}.wav", beam_size=5, task=task, language=language) # language argument is only used when the model ends with  '.en'
+            #print("Detected language '%s' with probability %f" % (info.language, info.language_probability))
+            for segment in result:
+               print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))            
         except:
             print("no audio track recorded yet")
 
