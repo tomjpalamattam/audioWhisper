@@ -63,7 +63,7 @@ def main():
                                             compression_ratio_threshold=2.0,
                                             language=language)
 
-            translatedText = result.get('text')
+            translatedText = result.get('text') #try result["text"]
             print(f'\n {task}d text:', translatedText)
         except:
             print("no audio track recorded yet")
