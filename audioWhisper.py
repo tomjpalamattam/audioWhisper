@@ -39,7 +39,8 @@ def main():
             raise ValueError("english model does not have large model, please choose from {tiny.en, small.en, medium.en}")
 
     #audio_model = whisper.load_model(model)
-    audio_model = whisper(model)
+    audio_model = whisper(model) # for GPU processing (needs cuda and cudnn)
+    #audio_model = whisper(model, device="cpu", compute_type="int8") # for CPU
 
     sd.default.device[0] = device_index
     sd.default.dtype[0] = np.float32
